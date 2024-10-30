@@ -4,7 +4,7 @@ function Header() {
     return (
         <header>
             <h1>
-                <AddTaskIcon />
+                <AddTaskIcon style={{ fontSize: "3rem", marginRight: "10px"}}/>
                 Task Maker
             </h1>
         </header>

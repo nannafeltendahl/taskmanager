@@ -11,9 +11,13 @@ html {
 body {
     background-color: #eee;
     background-image: url("./images/cubes.png");
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
 }
 
 header {
+    top: 0;
+    z-index: 1000;
     min-width: 100%;
     background-color: #F5BA13;
     padding: 16px 32px;
@@ -25,15 +29,16 @@ header h1 {
     font-family: "McLaren", cursive;
     font-size: 34px;
     font-weight: 200;
+    padding: 10px;
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     text-align: center;
     bottom: 0;
     width: 100%;
     height: 100px;
-    background:#F5BA13;
+    background: #F5BA13;
 }
 
 footer p {
@@ -69,7 +74,7 @@ footer p {
     float: right;
     margin-right: 20px;
     color: #FFFFFF;
-    background-color:#f5ba13;
+    background-color: #f5ba13;
     border: 1px solid #2B2B2B;
     box-shadow: 0 1px 5px rgb(138, 137, 137);
     border-radius: 50px;
@@ -78,8 +83,9 @@ footer p {
     cursor: pointer;
     outline: none;
 }
+
 .task button:hover {
-    background-color:#C11F1E;
+    background-color: #C11F1E;
     color: #FFFFFF;
 }
 
@@ -113,12 +119,13 @@ form.create-task button {
     color: #fff;
     border: none;
     border-radius: 50%;
-    width:50px;
+    width: 50px;
     height: 50px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     outline: none;
 }
+
 form.create-task button:hover {
     background-color: #45a049;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -129,12 +136,13 @@ form.create-task button:hover {
     header h1 {
         font-size: 28px;
     }
+
     form.create-task {
         width: 80%;
         padding: 20px;
         float: none;
 
-         }
+    }
 
     .task {
         margin: 50px 20px 50px 20px;
@@ -145,13 +153,14 @@ form.create-task button:hover {
     .task button {
         margin-right: 10px;
         color: #FFFFFF;
-        background-color:#C11F1E;
+        background-color: #C11F1E;
         width: 42px;
         height: 42px;
 
     }
+
     .task button:hover {
-        background-color:#C11F1E;
+        background-color: #C11F1E;
         border: 1px solid #FFFFFF;
     }
 }
