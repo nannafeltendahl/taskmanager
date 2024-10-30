@@ -1,7 +1,12 @@
+@font-face {
+    font-family: "OpenSans-Regular";
+    src: url("./font/Open_Sans/OpenSans-Regular.ttf");
+}
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "OpenSans-Regular", serif;
 }
 
 html {
@@ -43,7 +48,7 @@ footer {
 
 footer p {
     padding-top: 50px;
-    font-size: 18px;
+    font-size: 24px;
     color: #2B2B2B;
 }
 
@@ -63,7 +68,7 @@ footer p {
 }
 
 .task p {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 10px;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -105,8 +110,7 @@ form.create-task textarea {
     border: none;
     padding: 4px;
     outline: none;
-    font-size: 1.2em;
-    font-family: inherit;
+    font-size: 24px;
     resize: none;
 }
 
