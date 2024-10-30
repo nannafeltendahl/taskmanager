@@ -3,22 +3,22 @@ import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 
-interface Note {
+interface Task {
     id: number;
     title: string;
     content: string;
     priority: number;
 }
 
-interface CreateAreaProps {
-    onAdd: (note: Note) => void;
-    onEdit: (note: Note) => void;
-    editModeNote: Note | null;
+interface CreateTaskProps {
+    onAdd: (task: Task) => void;
+    onEdit: (task: Task) => void;
+    editModeTask: Task | null;
 }
 
-const CreateArea: React.FC<CreateAreaProps> = ({onAdd, onEdit, editModeNote}) => {
+const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) => {
     const [isExpanded, setExpanded] = useState<boolean>(false);
-    const [note, setNote] = useState<Note>({
+    const [task, setTask] = useState<Task>({
         id: -1,
         title: "",
         content: "",
@@ -26,29 +26,29 @@ const CreateArea: React.FC<CreateAreaProps> = ({onAdd, onEdit, editModeNote}) =>
     });
 
     useEffect(() => {
-        if (editModeNote) {
-            setNote(editModeNote);
+        if (editModeTask) {
+            setTask(editModeTask);
             setExpanded(true);
         }
-    }, [editModeNote]);
+    }, [editModeTask]);
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
         const {name, value} = event.target;
-        setNote((prevNote) => ({...prevNote, [name]: value}));
+        setTask((prevTask) => ({...prevTask, [name]: value}));
     }
 
-    function submitNote(event: React.FormEvent): void {
+    function submitTask(event: React.FormEvent): void {
         event.preventDefault();
-        if (note.id >= 0) {
-            onEdit(note);
+        if (task.id >= 0) {
+            onEdit(task);
         } else {
-            onAdd(note);
+            onAdd(task);
         }
-        resetNote();
+        resetTask();
     }
 
-    function resetNote(): void {
-        setNote({
+    function resetTask(): void {
+        setTask({
             id: -1,
             title: "",
             content: "",
@@ -63,20 +63,20 @@ const CreateArea: React.FC<CreateAreaProps> = ({onAdd, onEdit, editModeNote}) =>
 
     return (
         <div>
-            <form className="create-note">
+            <form className="create-task">
                 {isExpanded && (
                     <>
                         <input
                             name="title"
                             onChange={handleChange}
-                            value={note.title}
+                            value={task.title}
                             placeholder="Title"
                         />
                         <input
                             type="number"
                             name="priority"
                             onChange={handleChange}
-                            value={note.priority}
+                            value={task.priority}
                             placeholder="Priority"
                             min="1"
                             max="5"
@@ -87,12 +87,12 @@ const CreateArea: React.FC<CreateAreaProps> = ({onAdd, onEdit, editModeNote}) =>
                     name="content"
                     onClick={expand}
                     onChange={handleChange}
-                    value={note.content}
-                    placeholder="Take a note..."
+                    value={task.content}
+                    placeholder="Click to create a task..."
                     rows={isExpanded ? 3 : 1}
                 />
                 <Zoom in={isExpanded}>
-                    <Fab onClick={submitNote}>
+                    <Fab onClick={submitTask}>
                         <AddIcon/>
                     </Fab>
                 </Zoom>
@@ -101,4 +101,4 @@ const CreateArea: React.FC<CreateAreaProps> = ({onAdd, onEdit, editModeNote}) =>
     );
 }
 
-export default CreateArea;
+export default CreateTask;

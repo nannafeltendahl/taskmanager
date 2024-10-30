@@ -5,7 +5,7 @@ function Header() {
         <header>
             <h1>
                 <AddTaskIcon />
-                Task Manager
+                Task Maker
             </h1>
         </header>
     );

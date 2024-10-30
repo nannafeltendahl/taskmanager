@@ -2,11 +2,11 @@ import {useState} from 'react'
 import './App.css'
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-import CreateArea from "./components/CreateArea.tsx";
-import Note from "./components/Note.tsx";
+import CreateTask from "./components/CreateTask.tsx";
+import Task from "./components/Task.tsx";
 
 
-interface Note {
+interface Task {
     id: number;
     title: string;
     content: string;
@@ -14,47 +14,47 @@ interface Note {
 }
 
 const App: React.FC = () => {
-    const [notes, setNotes] = useState<Note[]>([]);
-    const [editModeNote, setEditModeNote] = useState<Note | null>(null);
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [editModeTask, setEditModeTask] = useState<Task | null>(null);
 
-    function addNote(newNote: Note) {
-        setNotes((prevNotes) => [...prevNotes, {...newNote, id: Date.now()}]);
+    function addTask(newTask: Task) {
+        setTasks((prevTasks) => [...prevTasks, {...newTask, id: Date.now()}]);
     }
 
-    function editNote(updatedNote: Note) {
-        setNotes((prevNotes) =>
-            prevNotes.map((note) => (note.id === updatedNote.id ? updatedNote : note))
+    function editTask(updatedTask: Task) {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
         );
-        setEditModeNote(null);
+        setEditModeTask(null);
     }
 
-    function deleteNote(id: number) {
-        setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    function deleteTask(id: number) {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     }
 
-    function handleEdit(note: Note) {
-        setEditModeNote(note);
+    function handleEdit(task: Task) {
+        setEditModeTask(task);
     }
 
-    // Sort notes by priority in ascending order
-    const sortedNotes = notes.slice().sort((a, b) => a.priority - b.priority);
+    // Sort tasks by priority in ascending order
+    const sortedTasks = tasks.slice().sort((a, b) => a.priority - b.priority);
 
     return (
         <div>
             <Header/>
-            <CreateArea
-                onAdd={addNote}
-                onEdit={editNote}
-                editModeNote={editModeNote}
+            <CreateTask
+                onAdd={addTask}
+                onEdit={editTask}
+                editModeTask={editModeTask}
             />
-            {sortedNotes.map((note) => (
-                <Note
-                    key={note.id}
-                    id={note.id}
-                    title={note.title}
-                    content={note.content}
-                    priority={note.priority}
-                    onDelete={deleteNote}
+            {sortedTasks.map((task) => (
+                <Task
+                    key={task.id}
+                    id={task.id}
+                    title={task.title}
+                    content={task.content}
+                    priority={task.priority}
+                    onDelete={deleteTask}
                     onEdit={handleEdit}
                 />
             ))}

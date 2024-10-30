@@ -1,16 +1,16 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-interface NoteProps {
+interface Task {
     id: number;
     title: string;
     content: string;
     priority: number;
     onDelete: (id: number) => void;
-    onEdit: (note: { id: number; title: string; content: string; priority: number; }) => void;
+    onEdit: (task: { id: number; title: string; content: string; priority: number; }) => void;
 }
 
-const Note: React.FC<NoteProps> = (props) => {
+const Task: React.FC<Task> = (props) => {
     function handleDeleteClick() {
         props.onDelete(props.id);
     }
@@ -25,7 +25,7 @@ const Note: React.FC<NoteProps> = (props) => {
     }
 
     return (
-        <div className="note">
+        <div className="task">
             <h1>{props.title}</h1>
             <p>{props.content}</p>
             <p>Priority: {props.priority}</p>
@@ -39,4 +39,4 @@ const Note: React.FC<NoteProps> = (props) => {
     );
 }
 
-export default Note;
+export default Task;
