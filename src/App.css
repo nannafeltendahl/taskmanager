@@ -51,6 +51,18 @@ footer p {
     font-size: 24px;
     color: #2B2B2B;
 }
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+
 
 .task {
     background: #fff;
@@ -92,6 +104,7 @@ footer p {
 .task button:hover {
     background-color: #C11F1E;
     color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 form.create-task {

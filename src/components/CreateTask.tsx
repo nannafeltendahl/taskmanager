@@ -1,9 +1,9 @@
-import {useState, useEffect} from 'react'
+import {useRef, useState, useEffect, useCallback} from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 
-interface Task {
+interface TaskProps {
     id: number;
     title: string;
     content: string;
@@ -11,26 +11,69 @@ interface Task {
 }
 
 interface CreateTaskProps {
-    onAdd: (task: Task) => void;
-    onEdit: (task: Task) => void;
-    editModeTask: Task | null;
+    onAdd: (task: TaskProps) => void;
+    onEdit: (task: TaskProps) => void;
+    editModeTask: TaskProps | null;
 }
 
 const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const [isExpanded, setExpanded] = useState<boolean>(false);
-    const [task, setTask] = useState<Task>({
+    const [task, setTask] = useState<TaskProps>({
         id: -1,
-        title: "",
-        content: "",
+        title: '',
+        content: '',
         priority: 1,
     });
 
     useEffect(() => {
+        console.log('FuseEffect!' + inputRef.current);
+        // if (inputRef.current) {
+        //     console.log('FOCUSING SHIT ELEMENT!')
+        //     inputRef.current.focus();
+        // }
         if (editModeTask) {
             setTask(editModeTask);
             setExpanded(true);
         }
     }, [editModeTask]);
+
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [isExpanded]);
+
+    const handleKeyDown = useCallback((event: KeyboardEvent) => {
+        // console.log(event);
+
+        if (event.key === 'c') {
+            setExpanded(true);
+            // event.stopPropagation();
+            event.preventDefault();
+        }
+
+        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            const focusableElements = document.querySelectorAll('input, textarea, button');
+            const focusArray = Array.prototype.slice.call(focusableElements);
+            const currentIndex = focusArray.indexOf(document.activeElement);
+            let nextIndex = currentIndex;
+
+            if (event.key === 'ArrowDown') {
+                nextIndex = (currentIndex + 1) % focusArray.length;
+            } else if (event.key === 'ArrowUp') {
+                nextIndex = (currentIndex - 1 + focusArray.length) % focusArray.length;
+            }
+
+            (focusArray[nextIndex] as HTMLElement).focus();
+            event.preventDefault();
+        }
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handleKeyDown]);
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
         const {name, value} = event.target;
@@ -50,8 +93,8 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
     function resetTask(): void {
         setTask({
             id: -1,
-            title: "",
-            content: "",
+            title: '',
+            content: '',
             priority: 1,
         });
         setExpanded(false);
@@ -63,16 +106,23 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
 
     return (
         <div>
-            <form className="create-task">
+            <form className="create-task" aria-labelledby="create-task-form">
+                <label htmlFor="task-title" className="visually-hidden">Title</label>
                 {isExpanded && (
                     <>
                         <input
+                            id="task-title"
                             name="title"
                             onChange={handleChange}
                             value={task.title}
                             placeholder="Title"
+                            aria-required="true"
+                            ref={inputRef}
+                            tabIndex={0}
                         />
+                        <label htmlFor="task-priority" className="visually-hidden">Priority</label>
                         <input
+                            id="task-priority"
                             type="number"
                             name="priority"
                             onChange={handleChange}
@@ -80,25 +130,38 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
                             placeholder="Priority"
                             min="1"
                             max="5"
+                            aria-required="true"
+                            tabIndex={1}
                         />
                     </>
                 )}
+                <label htmlFor="task-content" className="visually-hidden">Content</label>
                 <textarea
+                    id="task-content"
                     name="content"
                     onClick={expand}
                     onChange={handleChange}
                     value={task.content}
-                    placeholder="Click to create a task..."
+                    placeholder={!isExpanded ? "Press C or click here to create a task..." : "Description"}
                     rows={isExpanded ? 3 : 1}
+                    aria-required="true"
+                    tabIndex={2}
                 />
                 <Zoom in={isExpanded}>
-                    <Fab onClick={submitTask}>
+                    <Fab
+                        onClick={submitTask}
+                        aria-label={task.id >= 0 ? 'Edit task' : 'Add task'}
+                        tabIndex={3}
+                    >
                         <AddIcon/>
                     </Fab>
                 </Zoom>
             </form>
         </div>
     );
-}
+};
 
 export default CreateTask;
+
+
+

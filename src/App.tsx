@@ -6,7 +6,7 @@ import CreateTask from "./components/CreateTask.tsx";
 import Task from "./components/Task.tsx";
 
 
-interface Task {
+interface TaskProps {
     id: number;
     title: string;
     content: string;
@@ -14,14 +14,14 @@ interface Task {
 }
 
 const App: React.FC = () => {
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [editModeTask, setEditModeTask] = useState<Task | null>(null);
+    const [tasks, setTasks] = useState<TaskProps[]>([]);
+    const [editModeTask, setEditModeTask] = useState<TaskProps | null>(null);
 
-    function addTask(newTask: Task) {
+    function addTask(newTask: TaskProps) {
         setTasks((prevTasks) => [...prevTasks, {...newTask, id: Date.now()}]);
     }
 
-    function editTask(updatedTask: Task) {
+    function editTask(updatedTask: TaskProps) {
         setTasks((prevTasks) =>
             prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
         );
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     }
 
-    function handleEdit(task: Task) {
+    function handleEdit(task: TaskProps) {
         setEditModeTask(task);
     }
 

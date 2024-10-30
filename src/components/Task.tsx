@@ -1,7 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-interface Task {
+interface TaskProps {
     id: number;
     title: string;
     content: string;
@@ -10,7 +10,7 @@ interface Task {
     onEdit: (task: { id: number; title: string; content: string; priority: number; }) => void;
 }
 
-const Task: React.FC<Task> = (props) => {
+const Task: React.FC<TaskProps> = (props) => {
     function handleDeleteClick() {
         props.onDelete(props.id);
     }
@@ -25,14 +25,14 @@ const Task: React.FC<Task> = (props) => {
     }
 
     return (
-        <div className="task">
+        <div className="task" role="article">
             <h1>{props.title}</h1>
             <p>{props.content}</p>
             <p>Priority: {props.priority}</p>
-            <button onClick={handleDeleteClick}>
+            <button onClick={handleDeleteClick} aria-label="Delete task" tabIndex={0}>
                 <DeleteIcon />
             </button>
-            <button onClick={handleEditClick}>
+            <button onClick={handleEditClick} aria-label="Edit task" tabIndex={0}>
                 <EditIcon />
             </button>
         </div>
