@@ -1,14 +1,8 @@
-import {useRef, useState, useEffect, useCallback} from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
-
-interface TaskProps {
-    id: number;
-    title: string;
-    content: string;
-    priority: number;
-}
+import {TaskProps} from "../Types.tsx";
 
 interface CreateTaskProps {
     onAdd: (task: TaskProps) => void;
@@ -16,7 +10,7 @@ interface CreateTaskProps {
     editModeTask: TaskProps | null;
 }
 
-const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) => {
+const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [isExpanded, setExpanded] = useState<boolean>(false);
     const [task, setTask] = useState<TaskProps>({
@@ -24,14 +18,10 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
         title: '',
         content: '',
         priority: 1,
+        category: 'todo'
     });
 
     useEffect(() => {
-        console.log('FuseEffect!' + inputRef.current);
-        // if (inputRef.current) {
-        //     console.log('FOCUSING SHIT ELEMENT!')
-        //     inputRef.current.focus();
-        // }
         if (editModeTask) {
             setTask(editModeTask);
             setExpanded(true);
@@ -43,16 +33,12 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
     }, [isExpanded]);
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
-        // console.log(event);
-
         if (event.key === 'c') {
             setExpanded(true);
-            // event.stopPropagation();
             event.preventDefault();
         }
-
         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-            const focusableElements = document.querySelectorAll('input, textarea, button');
+            const focusableElements = document.querySelectorAll('input, textarea, button, select');
             const focusArray = Array.prototype.slice.call(focusableElements);
             const currentIndex = focusArray.indexOf(document.activeElement);
             let nextIndex = currentIndex;
@@ -75,9 +61,9 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
         };
     }, [handleKeyDown]);
 
-    function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-        const {name, value} = event.target;
-        setTask((prevTask) => ({...prevTask, [name]: value}));
+    function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void {
+        const { name, value } = event.target;
+        setTask((prevTask) => ({ ...prevTask, [name]: value }));
     }
 
     function submitTask(event: React.FormEvent): void {
@@ -96,6 +82,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
             title: '',
             content: '',
             priority: 1,
+            category: 'todo'
         });
         setExpanded(false);
     }
@@ -133,6 +120,20 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
                             aria-required="true"
                             tabIndex={1}
                         />
+                        <label htmlFor="task-category" className="visually-hidden">Category</label>
+                        <select
+                            id="task-category"
+                            name="category"
+                            onChange={handleChange}
+                            value={task.category}
+                            aria-required="true"
+                            tabIndex={2}
+                            className="task-category-select"
+                        >
+                            <option value="todo">Todo</option>
+                            <option value="in process">In Process</option>
+                            <option value="done">Done</option>
+                        </select>
                     </>
                 )}
                 <label htmlFor="task-content" className="visually-hidden">Content</label>
@@ -145,15 +146,15 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
                     placeholder={!isExpanded ? "Press C or click here to create a task..." : "Description"}
                     rows={isExpanded ? 3 : 1}
                     aria-required="true"
-                    tabIndex={2}
+                    tabIndex={3}
                 />
                 <Zoom in={isExpanded}>
                     <Fab
                         onClick={submitTask}
                         aria-label={task.id >= 0 ? 'Edit task' : 'Add task'}
-                        tabIndex={3}
+                        tabIndex={4}
                     >
-                        <AddIcon/>
+                        <AddIcon />
                     </Fab>
                 </Zoom>
             </form>
@@ -162,6 +163,3 @@ const CreateTask: React.FC<CreateTaskProps> = ({onAdd, onEdit, editModeTask}) =>
 };
 
 export default CreateTask;
-
-
-
