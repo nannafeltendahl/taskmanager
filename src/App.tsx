@@ -6,6 +6,7 @@ import CreateTask from "./components/CreateTask.tsx";
 import Task from "./components/Task.tsx";
 import {TaskProps} from "./Types.tsx";
 
+
 const App: React.FC = () => {
     const [tasks, setTasks] = useState<TaskProps[]>([]);
     const [editModeTask, setEditModeTask] = useState<TaskProps | null>(null);

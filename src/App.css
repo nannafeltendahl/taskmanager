@@ -113,7 +113,7 @@ footer p {
     float: right;
     margin-right: 20px;
     color: #FFFFFF;
-    background-color: #CCCCCC;
+    background-color: green;
     border: 1px solid #2B2B2B;
     box-shadow: 0 1px 5px rgb(138, 137, 137);
     border-radius: 50px;
@@ -122,6 +122,15 @@ footer p {
     cursor: pointer;
     outline: none;
 }
+
+
+.editButton:hover {
+    background-color: darkgreen;
+    color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
 /* Tilføj CSS til at fremhæve fokuserede knapper */
 .editButton:focus {
     outline: 2px solid #005bcc;
@@ -133,14 +142,14 @@ footer p {
     outline-offset: 2px;
 }
 
-
-
-.editButton:hover {
-    background-color: #999999;
-    color: #FFFFFF;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.overlay p{
+    font-size: 12pt;
 }
 
+.overlay button{
+    width: 50px;
+    height: 50px;
+}
 
 form.create-task {
     position: relative;
@@ -185,10 +194,10 @@ form.create-task button:hover {
 /* Style for the dropdown menu */
 .task-category-select {
     padding: 8px;
-    font-size: 22px; /* Increases font size */
-    border-radius: 4px; /* Rounds the corners */
-    border: 1px solid #ccc; /* Adds a border */
-    width: 100%; /* Makes the dropdown take the full width of its container */
+    font-size: 22px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
     margin: 15px 0 15px 0;
 }
 

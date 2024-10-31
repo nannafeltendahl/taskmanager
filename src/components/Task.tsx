@@ -1,7 +1,9 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {TaskProps} from "../Types.tsx";
+import ConfirmationDialog from "./ConfirmationDialog.tsx";
+
 
 
 interface ExtendedTaskProps extends TaskProps {
@@ -15,6 +17,7 @@ interface ExtendedTaskProps extends TaskProps {
 }
 
 const Task: React.FC<ExtendedTaskProps> = (props) => {
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const deleteButtonRef = useRef<HTMLButtonElement>(null);
     const editButtonRef = useRef<HTMLButtonElement>(null);
     const categorySelectRef = useRef<HTMLSelectElement>(null);
@@ -59,8 +62,18 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
     }, []);
 
     function handleDeleteClick() {
-        props.onDelete(props.id);
+        setShowConfirmDialog(true);
     }
+
+    function confirmDelete() {
+        props.onDelete(props.id);
+        setShowConfirmDialog(false);
+    }
+
+    function cancelDelete() {
+        setShowConfirmDialog(false);
+    }
+
 
     function handleEditClick() {
         props.onEdit({
@@ -119,6 +132,14 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
             >
                 <EditIcon/>
             </button>
+
+            {showConfirmDialog && (
+                <ConfirmationDialog
+                    message="Confirm action"
+                    onConfirm={confirmDelete}
+                    onCancel={cancelDelete}
+                />
+            )}
         </div>
     );
 }
