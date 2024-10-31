@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -11,6 +12,34 @@ interface TaskProps {
 }
 
 const Task: React.FC<TaskProps> = (props) => {
+    const deleteButtonRef = useRef<HTMLButtonElement>(null);
+    const editButtonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+                if (document.activeElement === deleteButtonRef.current) {
+                    editButtonRef.current?.focus();
+                } else {
+                    deleteButtonRef.current?.focus();
+                }
+                event.preventDefault();
+            } else if (event.key === 'Enter') {
+                if (document.activeElement === deleteButtonRef.current) {
+                    handleDeleteClick();
+                } else if (document.activeElement === editButtonRef.current) {
+                    handleEditClick();
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     function handleDeleteClick() {
         props.onDelete(props.id);
     }
@@ -29,10 +58,22 @@ const Task: React.FC<TaskProps> = (props) => {
             <h1>{props.title}</h1>
             <p>{props.content}</p>
             <p>Priority: {props.priority}</p>
-            <button onClick={handleDeleteClick} aria-label="Delete task" tabIndex={0}>
+            <button
+                className="deleteButton"
+                onClick={handleDeleteClick}
+                aria-label="Delete task"
+                tabIndex={0}
+                ref={deleteButtonRef}
+            >
                 <DeleteIcon />
             </button>
-            <button onClick={handleEditClick} aria-label="Edit task" tabIndex={0}>
+            <button
+                className="editButton"
+                onClick={handleEditClick}
+                aria-label="Edit task"
+                tabIndex={0}
+                ref={editButtonRef}
+            >
                 <EditIcon />
             </button>
         </div>
@@ -40,3 +81,4 @@ const Task: React.FC<TaskProps> = (props) => {
 }
 
 export default Task;
+

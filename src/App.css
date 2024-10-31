@@ -24,13 +24,13 @@ header {
     top: 0;
     z-index: 1000;
     min-width: 100%;
-    background-color: #F5BA13;
+    background-color: #A8B3EC;
     padding: 16px 32px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
-    color: #2B2B2B;
+    color: #1F1F1F;
     font-family: "McLaren", cursive;
     font-size: 34px;
     font-weight: 200;
@@ -43,13 +43,14 @@ footer {
     bottom: 0;
     width: 100%;
     height: 100px;
-    background: #F5BA13;
+    background: #A8B3EC;
 }
 
 footer p {
     padding-top: 50px;
     font-size: 24px;
-    color: #2B2B2B;
+    color: #1F1F1F;
+    padding-bottom: 50px;
 }
 .visually-hidden {
     position: absolute;
@@ -86,12 +87,12 @@ footer p {
     word-wrap: break-word;
 }
 
-.task button {
+.deleteButton{
     position: relative;
     float: right;
     margin-right: 20px;
     color: #FFFFFF;
-    background-color: #f5ba13;
+    background-color: #FF4C4C;
     border: 1px solid #2B2B2B;
     box-shadow: 0 1px 5px rgb(138, 137, 137);
     border-radius: 50px;
@@ -101,11 +102,45 @@ footer p {
     outline: none;
 }
 
-.task button:hover {
-    background-color: #C11F1E;
+.deleteButton:hover {
+    background-color: #D43F3F;
     color: #FFFFFF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+.editButton{
+    position: relative;
+    float: right;
+    margin-right: 20px;
+    color: #FFFFFF;
+    background-color: #CCCCCC;
+    border: 1px solid #2B2B2B;
+    box-shadow: 0 1px 5px rgb(138, 137, 137);
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    outline: none;
+}
+/* Tilføj CSS til at fremhæve fokuserede knapper */
+.editButton:focus {
+    outline: 2px solid #005bcc;
+    outline-offset: 2px;
+}
+/* Tilføj CSS til at fremhæve fokuserede knapper */
+.deleteButton:focus {
+    outline: 2px solid #005bcc;
+    outline-offset: 2px;
+}
+
+
+
+.editButton:hover {
+    background-color: #999999;
+    color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 
 form.create-task {
     position: relative;
@@ -167,17 +202,5 @@ form.create-task button:hover {
         float: none;
     }
 
-    .task button {
-        margin-right: 10px;
-        color: #FFFFFF;
-        background-color: #C11F1E;
-        width: 42px;
-        height: 42px;
 
-    }
-
-    .task button:hover {
-        background-color: #C11F1E;
-        border: 1px solid #FFFFFF;
-    }
 }
