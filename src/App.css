@@ -63,10 +63,6 @@ footer p {
     border: 0;
 }
 
-.CreatetaskText {
-    font-size:10pt;
-}
-
 
 .task {
     background: #fff;
@@ -145,8 +141,12 @@ footer p {
     outline-offset: 2px;
 }
 
+.overlay{
+    margin-top: 30px;
+
+}
 .overlay p{
-    font-size: 12pt;
+    font-size:18pt;
 }
 
 .overlay button{
