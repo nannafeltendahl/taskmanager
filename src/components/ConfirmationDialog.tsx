@@ -13,7 +13,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ message, onConf
                 <h2>Delete</h2>
                 <p>{message}</p>
                 <button className="deleteButton" onClick={onConfirm}>Delete</button>
-                <button className="editButton"  onClick={onCancel}>No</button>
+                <button className="editButton"  onClick={onCancel}>Cancel</button>
             </div>
         </div>
     );
