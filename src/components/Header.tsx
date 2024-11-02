@@ -1,10 +1,9 @@
-import AddTaskIcon from '@mui/icons-material/AddTask';
 
 function Header() {
     return (
         <header>
             <h1>
-                <AddTaskIcon style={{ fontSize: "3rem", marginRight: "10px"}}/>
+                <img src={"./images/taskmakerlogo.svg"} />
                 Task Maker
             </h1>
         </header>
