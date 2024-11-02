@@ -30,13 +30,17 @@ header {
     padding: 16px 32px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
+.HeaderStyle{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
 
 header h1 {
     color: #1F1F1F;
     font-family: "McLaren", cursive;
     font-size: 34px;
     font-weight: 200;
-    padding: 10px;
+    padding: 30px 5px 30px 20px;
 }
 
 footer {
