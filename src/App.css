@@ -68,6 +68,10 @@ footer p {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+#task-priority {
+    border-top: 20px solid #A8B3EC;
+
+}
 
 
 .task {
