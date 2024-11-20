@@ -48,27 +48,28 @@ export default tseslint.config({
   },
 })
 
-
+Sh (shell script, udføres i terminalen)
 
 /*Installation 
 Følg disse trin for at installere og køre applikationen:/*
 # Task Manager
 
-    1. **clone repositorie **:
-sh git clone https://github.com/nannafeltendahl/taskmanager.git
-    cd task-manager
+1. Clone repository 
+
+git clone https://github.com/nannafeltendahl/taskmanager.git
+cd taskmanager
     
 
-2. Installer pakker
+2. Install dependencies
 Brug npm til at installere alle nødvendige pakker:
-sh npm install
+npm install
    
 
 3. Start applikationen
-sh npm start
+npm start
     
 
-Applikationen vil nu køre på http://localhost:3000.
+Applikationen vil nu køre på http://localhost:3000. (ctr + left click on the URL)
 
 
 Projektstruktur
@@ -78,7 +79,7 @@ En oversigt over projektets struktur:
 taskmanager/
 │
 ├── src/
-│   ├── components/         # Alle React komponenter
+│   ├── components/ # Alle React komponenter
 │   │   ├── ConfirmationsDialog.tsx
 │   │   ├── CreateTask.tsx
 │   │   ├── Footer.tsx
@@ -89,7 +90,7 @@ taskmanager/
 │   ├── font/            
 │   │   ├── Open_Sans
 │   ├── images/            
-│   │   ├── diamondbackground.svg
+│   │   ├── diamondbackground.svg mm.
 │   │ 
 │   │
 │   ├── App.tsx  
