@@ -23,7 +23,7 @@ export default tseslint.config({
     },
   },
 })
-```
+
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
 - Optionally add `...tseslint.configs.stylisticTypeChecked`
@@ -47,4 +47,57 @@ export default tseslint.config({
     ...react.configs['jsx-runtime'].rules,
   },
 })
-```
+
+
+
+/*Installation 
+Følg disse trin for at installere og køre applikationen:/*
+# Task Manager
+
+    1. **clone repositorie **:
+sh git clone https://github.com/nannafeltendahl/taskmanager.git
+    cd task-manager
+    
+
+2. Installer pakker
+Brug npm til at installere alle nødvendige pakker:
+sh npm install
+   
+
+3. Start applikationen
+sh npm start
+    
+
+Applikationen vil nu køre på http://localhost:3000.
+
+
+Projektstruktur
+En oversigt over projektets struktur:
+
+ 
+taskmanager/
+│
+├── src/
+│   ├── components/         # Alle React komponenter
+│   │   ├── ConfirmationsDialog.tsx
+│   │   ├── CreateTask.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Task.tsx
+│   │   └── Header.tsx
+
+│   │
+│   ├── font/            
+│   │   ├── Open_Sans
+│   ├── images/            
+│   │   ├── diamondbackground.svg
+│   │ 
+│   │
+│   ├── App.tsx  
+│   ├── App.css  # css styling 
+│   ├── main.tsx  # Hoved fil til at rendere React komponenter
+│   ├── types.tsx   # TypeScript typer og interfaces
+│   └── index.html 
+/
+ */
+
+
