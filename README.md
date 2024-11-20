@@ -101,4 +101,17 @@ taskmanager/
 /
  */
 
+Min task manager fuktioner:
+Oprette opgaver: Brugeren kan tryppe på en ny task, og tilføje overskrift og tekst
+Redigere opgaver: Brugeren kan trykke på den grønne redigeringspen, og ændre i teksten, prioritet og kategori
+Slet opgaver: Brugeren kan slette opgaver, ved at trykke på den røde skraldespand
+Nastaturnavigation: Jeg har tilføjet tastaturnavigation for at appen er inkluderende og tilgøngelig for alle brugere. 
+LocalStoage: Jeg har brugt localStage så brugeren kan gemme sine opgaver ved opdateringer af siden på sin lokale enhed. 
+
+Teknologier anvendt: 
+React
+Typescript
+css
+HTML 
+
 
