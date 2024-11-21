@@ -1,11 +1,10 @@
-import {useRef, useEffect, useState} from 'react';
+import { useRef, useEffect, useState } from 'react';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import {TaskProps} from "../Types.tsx";
+import { TaskProps } from "../Types.tsx";
 import ConfirmationDialog from "./ConfirmationDialog.tsx";
 
-
-
+// Interface extending TaskProps with additional properties for the Task component
 interface ExtendedTaskProps extends TaskProps {
     id: number;
     title: string;
@@ -16,16 +15,19 @@ interface ExtendedTaskProps extends TaskProps {
     onEdit: (task: { id: number; title: string; content: string; priority: number; category: string }) => void;
 }
 
+// Functional component for a single Task
 const Task: React.FC<ExtendedTaskProps> = (props) => {
+    // State to manage the visibility of the confirmation dialog
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    // References to manage focus on the buttons and select element
     const deleteButtonRef = useRef<HTMLButtonElement>(null);
     const editButtonRef = useRef<HTMLButtonElement>(null);
     const categorySelectRef = useRef<HTMLSelectElement>(null);
 
-
+    // useEffect to handle keydown events for keyboard navigation and actions
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            // Håndter venstre og højre piletaster for navigation mellem knapperne
+            // Handle left and right arrow keys for navigation between buttons
             if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
                 const focusableElements: (HTMLSelectElement | HTMLButtonElement | null)[] = [
                     categorySelectRef.current,
@@ -45,6 +47,7 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
 
                 (focusableElements[nextIndex] as HTMLElement)?.focus();
                 event.preventDefault();
+                // Handle Enter key to trigger delete or edit actions
             } else if (event.key === 'Enter') {
                 if (document.activeElement === deleteButtonRef.current) {
                     handleDeleteClick();
@@ -54,27 +57,32 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
             }
         };
 
+        // Add event listener for keydown events
         window.addEventListener('keydown', handleKeyDown);
 
+        // Cleanup event listener on component unmount
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
 
+    // Function to handle delete button click
     function handleDeleteClick() {
         setShowConfirmDialog(true);
     }
 
+    // Function to confirm deletion
     function confirmDelete() {
         props.onDelete(props.id);
         setShowConfirmDialog(false);
     }
 
+    // Function to cancel deletion
     function cancelDelete() {
         setShowConfirmDialog(false);
     }
 
-
+    // Function to handle edit button click
     function handleEditClick() {
         props.onEdit({
             id: props.id,
@@ -85,6 +93,7 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
         });
     }
 
+    // Function to handle category change in the select element
     function handleCategoryChange(event: React.ChangeEvent<HTMLSelectElement>) {
         const newCategory = event.target.value;
         props.onEdit({
@@ -97,6 +106,7 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
     }
 
     return (
+        // Define the task element as an article for semantic meaning
         <div className="task" role="article">
             <h1>{props.title}</h1>
             <p>{props.content}</p>
@@ -145,6 +155,7 @@ const Task: React.FC<ExtendedTaskProps> = (props) => {
 }
 
 export default Task;
+
 
 
 

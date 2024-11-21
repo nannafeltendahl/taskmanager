@@ -4,6 +4,7 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import {TaskProps} from "../Types.tsx";
 
+// Props interface for CreateTask component
 interface CreateTaskProps {
     onAdd: (task: TaskProps) => void;
     onEdit: (task: TaskProps) => void;
@@ -11,7 +12,10 @@ interface CreateTaskProps {
 }
 
 const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) => {
+    // useRef hook to manage focus on the input element
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // useState hooks to manage the expanded state of the form and the current task state
     const [isExpanded, setExpanded] = useState<boolean>(false);
     const [task, setTask] = useState<TaskProps>({
         id: -1,
@@ -21,6 +25,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
         category: 'todo'
     });
 
+    // useEffect to set the task state and expand the form if a task is in edit mode
     useEffect(() => {
         if (editModeTask) {
             setTask(editModeTask);
@@ -28,10 +33,12 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
         }
     }, [editModeTask]);
 
+    // useEffect to focus the input element when the form is expanded
     useEffect(() => {
         inputRef.current?.focus();
     }, [isExpanded]);
 
+    // useCallback to handle keyboard events for expanding the form and navigating focusable elements
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
         if (event.key === 'c') {
             setExpanded(true);
@@ -54,6 +61,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
         }
     }, []);
 
+    // useEffect to add and clean up the event listener for keydown events
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
         return () => {
@@ -61,11 +69,13 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
         };
     }, [handleKeyDown]);
 
+    // Function to handle changes in input, textarea, and select elements
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void {
         const { name, value } = event.target;
         setTask((prevTask) => ({ ...prevTask, [name]: value }));
     }
 
+    // Function to handle form submission
     function submitTask(event: React.FormEvent): void {
         event.preventDefault();
         if (task.id >= 0) {
@@ -76,6 +86,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
         resetTask();
     }
 
+    // Function to reset the task state and collapse the form
     function resetTask(): void {
         setTask({
             id: -1,
@@ -87,6 +98,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
         setExpanded(false);
     }
 
+    // Function to expand the form
     function expand(): void {
         setExpanded(true);
     }
@@ -163,3 +175,4 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAdd, onEdit, editModeTask }) 
 };
 
 export default CreateTask;
+

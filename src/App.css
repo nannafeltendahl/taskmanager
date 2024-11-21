@@ -213,7 +213,7 @@ form.create-task button:hover {
     background-color: #45a049;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-/* Style for the dropdown menu */
+/**************Style for the dropdown menu */
 .task-category-select {
     padding: 8px;
     font-size: 22px;
@@ -228,7 +228,7 @@ form.create-task button:hover {
     color: #1F1F1F;
 }
 
-
+/***************styling for mobile version*/
 @media (max-width: 768px) {
 
     header h1 {
